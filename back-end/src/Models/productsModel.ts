@@ -5,7 +5,7 @@ export class ProductModel {
   async index(): Promise<Product[]> {
     try {
       const connection = await client.connect();
-      const sql = `SELECT * FROM products`;
+      const sql = `SELECT * FROM products ORDER BY product_id asc`;
       const result = await connection.query(sql);
       connection.release();
       return result.rows;

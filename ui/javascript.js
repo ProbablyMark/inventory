@@ -34,6 +34,7 @@ const itemsTable = (items) => {
 };
 
 ////get all products
+
 fetch("http://localhost:3000/products/all")
     .then((response) => {
         return response.json();
