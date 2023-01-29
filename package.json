@@ -1,0 +1,8 @@
+{
+    "scripts": {
+        "api:install": "cd  back-end && npm install  ",
+        "api:start": "cd  back-end  && npm run start",
+        "ui:start": "cd ui && index.html",
+        "app:start": "npm run api:install && npm run ui:start && npm run api:start "
+    }
+}

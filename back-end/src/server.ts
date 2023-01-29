@@ -12,7 +12,8 @@ const address: string = 'localhost:3000';
 const port: number = 3000;
 
 //use morgan
-app.use(morgan(':method :url :status :http-version :response-time '));
+
+app.use(morgan(':method :url  :status :http-version :response-time '));
 
 //use cors
 app.use(cors());
