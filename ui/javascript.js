@@ -34,20 +34,22 @@ const itemsTable = (items) => {
 };
 
 ////get all products
-
-fetch("http://localhost:3000/products/all")
-    .then((response) => {
-        return response.json();
-    })
-    .then((data) => {
-        console.log(data);
-        if (data.length == 0) {
-            document.querySelectorAll(".left")[0].innerHTML = "no items to show";
-        } else {
-            document.querySelectorAll(".left")[0].innerHTML = itemsTable(data);
-        }
-    })
-    .catch((err) => console.log(err));
+setTimeout(
+    fetch("http://localhost:3000/products/all")
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data);
+            if (data.length == 0) {
+                document.querySelectorAll(".left")[0].innerHTML = "no items to show";
+            } else {
+                document.querySelectorAll(".left")[0].innerHTML = itemsTable(data);
+            }
+        })
+        .catch((err) => console.log(err)),
+    1000
+);
 
 ////delete
 const deleteProduct = () => {
