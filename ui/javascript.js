@@ -7,7 +7,7 @@ const itemsTable = (items) => {
     items.forEach((element) => {
         rows =
             rows +
-            `<tr '>
+            `<tr >
         <td class='td${element.product_id}'>${element.product_id}</td>
         <td class='td${element.product_id}'>${element.name}</td>
         <td class='td${element.product_id}'>${element.price}</td>
@@ -85,23 +85,74 @@ const enableAddNew = () => {
         console.log(payload);
         let newProduct = { name: payload[0][1], price: payload[1][1], description: payload[2][1] };
         console.log(newProduct);
-        console.log(JSON.stringify(newProduct));
+
         addNew(newProduct);
     });
 };
-/////cancel
+/////cancel add new
 const cancel = () => {
     newProductDiv.innerHTML = ``;
 };
 
 ///////add new
 const addNew = (product) => {
-    fetch(`http://localhost:3000/products/newProduct`, { method: "POST", body: product })
+    fetch(`http://localhost:3000/products/newProduct`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(product),
+    })
         .then((response) => {
             console.log(response);
             return response.json();
         })
         .then((data) => console.log(data))
         .catch((err) => console.log(err));
-    //location.reload();
+    location.reload();
+};
+///////edit
+const editProduct = () => {
+    let nodes = document.querySelectorAll(`.` + event.target.parentNode.classList[0]);
+    console.log(nodes);
+    console.log(event.target);
+    console.log(event.target.parentNode.classList[0]);
+    for (let i = 1; i < nodes.length; i++) {
+        if (i < 5) {
+            nodes[
+                i
+            ].innerHTML = `<input class='${nodes[i].classList[0]}' value='${nodes[i].textContent}'>`;
+        } else if (i == 5) {
+            nodes[
+                i
+            ].innerHTML = `<button onclick='submitChanges()' class='${nodes[i].classList[0]}'>Submit changes</button>`;
+        }
+    }
+};
+////submitChanges
+const submitChanges = () => {
+    let nodes = document.querySelectorAll(`.` + event.target.parentNode.classList[0]);
+    let id = nodes[0].textContent;
+    let changes = { cols: ["name", "price", "description", "quantity"], values: [] };
+
+    for (let i = 1; i < nodes.length; i++) {
+        if (nodes[i].localName == `input`) {
+            changes.values.push(nodes[i].value);
+        }
+    }
+
+    fetch(`http://localhost:3000/products/${id}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(changes),
+    })
+        .then((response) => {
+            console.log(response);
+            return response.json();
+        })
+        .then((data) => console.log(data))
+        .catch((err) => console.log(err));
+    location.reload();
 };
