@@ -1,6 +1,21 @@
 import client from '../database';
 import { Product } from '../Types/products';
 
+let sql: string = ``;
+function creatQuery(cols: string[]) {
+  const query = ['UPDATE products'];
+  query.push('SET');
+
+  const set: string[] = [];
+  Object.values(cols).forEach(function (key, i) {
+    set.push(key + ' = ($' + (i + 2) + ')');
+  });
+  query.push(set.join(', '));
+
+  query.push('WHERE product_id = ($1) ');
+
+  sql = query.join(' ');
+}
 export class ProductModel {
   async index(): Promise<Product[]> {
     try {
@@ -50,21 +65,6 @@ export class ProductModel {
     values: string[]
   ): Promise<Product> {
     try {
-      let sql: string = ``;
-      function creatQuery(cols: string[]) {
-        let query = ['UPDATE products'];
-        query.push('SET');
-
-        let set: string[] = [];
-        Object.values(cols).forEach(function (key, i) {
-          set.push(key + ' = ($' + (i + 2) + ')');
-        });
-        query.push(set.join(', '));
-
-        query.push('WHERE product_id = ($1) ');
-
-        sql = query.join(' ');
-      }
       creatQuery(cols);
       const connection = await client.connect();
 

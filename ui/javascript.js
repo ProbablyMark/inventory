@@ -13,8 +13,8 @@ const itemsTable = (items) => {
         <td class='td${element.product_id}'>${element.price}</td>
         <td class='td${element.product_id}'>${element.description}</td>
         <td class='td${element.product_id}'>${element.quantity}</td>
-        <td class='td${element.product_id}'><button onclick='editProduct()'>Edit</button></td>
-        <td class='td${element.product_id}'><button onclick='deleteProduct()'>Delete</button></td>
+        <td class='td${element.product_id}'><button class="edit" onclick='editProduct()'>Edit</button></td>
+        <td class='td${element.product_id}'><button class="delete" onclick='deleteProduct()'>Delete</button></td>
     </tr>`;
     });
     table =
@@ -34,7 +34,7 @@ const itemsTable = (items) => {
 };
 
 ////get all products
-setTimeout(
+setTimeout(() => {
     fetch("http://localhost:3000/products/all")
         .then((response) => {
             return response.json();
@@ -47,9 +47,8 @@ setTimeout(
                 document.querySelectorAll(".left")[0].innerHTML = itemsTable(data);
             }
         })
-        .catch((err) => console.log(err)),
-    1000
-);
+        .catch((err) => console.log(err));
+}, 100);
 
 ////delete
 const deleteProduct = () => {
@@ -64,21 +63,21 @@ const deleteProduct = () => {
 const enableAddNew = () => {
     newProductDiv.innerHTML = ` <form  id="form"  >
     <div class="form-field">
-      <label for="full-name">Name</label>
+      <label for="full-name">Name</label><br>
       <input type="text" name="name" id="full-name" placeholder="product name" required />
     </div>
     <div class="form-field">
-      <label for="price">Price</label>
+      <label for="price">Price</label><br>
       <input type="number" name="price" id="price" placeholder="product price" required />
     </div>
     <div class="form-field">
-      <label for="descreption">descreption</label>
+      <label for="descreption">descreption</label><br>
       <input type="text" name="descreption " id="descreption" required />
     </div>
     <div class="form-field">
-      <label for=""></label>
-      <input type="submit" value="Add Product" />
-      <button onclick="cancel()">cancel</button>
+      
+      <input class="add-new" type="submit" value="Add Product" />
+      <button class="delete" onclick="cancel()">Cancel</button>
     </div>
   </form>`;
     const formDiv = document.querySelector(`#form`);
@@ -128,7 +127,7 @@ const editProduct = () => {
         } else if (i == 5) {
             nodes[
                 i
-            ].innerHTML = `<button onclick='submitChanges()' class='${nodes[i].classList[0]}'>Submit changes</button>`;
+            ].innerHTML = `<button class="edit" onclick='submitChanges()' class='${nodes[i].classList[0]}'>Submit changes</button>`;
         }
     }
 };
