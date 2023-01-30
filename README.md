@@ -14,11 +14,11 @@
 -   Start server: `npm run api:start`
 -   Run ui: `npm run "ui:start`
 
--- note that you need to creat a .env file with the following variables :
---- POSTGRES_HOST=localhost
---- POSTGRES_DB <your db name after you create it>
---- POSTGRES_USER <your pg username after you create it >
---- POSTGRES_PASSWORD <your pg password after you create it >
+--   note that you need to creat a .env file with the following variables :
+  -  POSTGRES_HOST=localhost
+  -  POSTGRES_DB <your db name after you create it>
+  -  POSTGRES_USER <your pg username after you create it >
+  -  POSTGRES_PASSWORD <your pg password after you create it >
 
 # content
 
@@ -60,3 +60,12 @@
         </tr>
     <tbody>
 </table>
+
+
+2- ui:
+![seif1](https://user-images.githubusercontent.com/96624005/215526898-ce63afc1-dc9b-42c4-8aa1-383fbb0a781e.PNG)
+![seif3](https://user-images.githubusercontent.com/96624005/215527052-b1b06564-6e81-48eb-895c-eba0d8ba51ae.PNG)
+
+
+
+
